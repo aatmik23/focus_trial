@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Tracker - AI Powered Focus Monitor</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Focus Tracker</h1>
+            <p class="subtitle">AI-Powered Focus Monitoring with MediaPipe</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Video Section -->
+            <div class="video-section">
+                <div class="video-container">
+                    <video id="videoElement" autoplay playsinline></video>
+                    <canvas id="canvasElement"></canvas>
+                    <div id="statusIndicator" class="status-indicator">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Initializing...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Section -->
+            <div class="dashboard-section">
+                <!-- Focus Score Card -->
+                <div class="card score-card">
+                    <h2>Focus Score</h2>
+                    <div class="score-display">
+                        <div class="score-circle">
+                            <svg viewBox="0 0 200 200">
+                                <circle cx="100" cy="100" r="90" class="score-bg"></circle>
+                                <circle cx="100" cy="100" r="90" class="score-progress" id="scoreCircle"></circle>
+                            </svg>
+                            <div class="score-value">
+                                <span id="focusScore">0</span>
+                                <span class="score-unit">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="score-label" id="scoreLabel">Not Started</div>
+                </div>
+
+                <!-- Statistics Card -->
+                <div class="card stats-card">
+                    <h2>Session Statistics</h2>
+                    <div class="stat-item">
+                        <span class="stat-label">Session Duration</span>
+                        <span class="stat-value" id="sessionDuration">00:00</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Focus Time</span>
+                        <span class="stat-value" id="focusTime">00:00</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Distraction Time</span>
+                        <span class="stat-value" id="distractionTime">00:00</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Warnings</span>
+                        <span class="stat-value" id="warningCount">0</span>
+                    </div>
+                </div>
+
+                <!-- Controls Card -->
+                <div class="card controls-card">
+                    <h2>Controls</h2>
+                    <div class="button-group">
+                        <button id="startBtn" class="btn btn-primary">
+                            <span class="btn-icon">▶</span>
+                            Start Tracking
+                        </button>
+                        <button id="stopBtn" class="btn btn-secondary" disabled>
+                            <span class="btn-icon">⏸</span>
+                            Stop
+                        </button>
+                        <button id="resetBtn" class="btn btn-secondary">
+                            <span class="btn-icon">↻</span>
+                            Reset
+                        </button>
+                    </div>
+                    <div class="settings">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="soundToggle" checked>
+                            <span>Enable Warning Sounds</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Warning Log Card -->
+                <div class="card warning-card">
+                    <h2>Warning Log</h2>
+                    <div id="warningLog" class="warning-log">
+                        <p class="empty-state">No warnings yet. Stay focused! 💪</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Warning Alert Overlay -->
+        <div id="warningAlert" class="warning-alert hidden">
+            <div class="warning-content">
+                <div class="warning-icon">⚠️</div>
+                <h3>Focus Lost!</h3>
+                <p>Please return your attention to the screen</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>Powered by MediaPipe Face Mesh | Built with ❤️ for productivity</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
